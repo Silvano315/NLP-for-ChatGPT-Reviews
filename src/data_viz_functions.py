@@ -8,6 +8,8 @@ from collections import Counter
 import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from nltk.util import ngrams
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 
 # Plots a bar chart for a specified numerical feature 
@@ -64,4 +66,54 @@ def plot_top_n_words(text, n=20):
     plt.title(f'Top {n} Most Common Words')
     plt.xlabel('Counts')
     plt.ylabel('Words')
+    plt.show()
+
+# Distribution for word length
+def plot_word_length_distribution(text):
+    
+    words = word_tokenize(text)
+    word_lengths = [len(word) for word in words if word.isalnum()]
+
+    plt.figure(figsize=(10, 5))
+    sns.histplot(word_lengths, bins=range(1, 21), kde=False, color='salmon')
+    plt.title('Word Length Distribution')
+    plt.xlabel('Word Length')
+    plt.ylabel('Frequency')
+    plt.show()
+
+
+# Sentiment Analysis Plot
+def sentiment_analysis(df):
+
+    sia = SentimentIntensityAnalyzer()
+    sentiments = df['content'].dropna().apply(lambda x: sia.polarity_scores(x)['compound'])
+    df['sentiment'] = sentiments
+    return df
+
+def plot_sentiment_distribution(df):
+
+    plt.figure(figsize=(10, 5))
+    sns.histplot(df['sentiment'], bins=20, kde=True, color='lightblue')
+    plt.title('Sentiment Distribution')
+    plt.xlabel('Sentiment Score')
+    plt.ylabel('Frequency')
+    plt.show()
+
+
+# N-Grams distribution with bar plots
+def plot_top_n_ngrams(text, n=2, top_k=20):
+    
+    words = word_tokenize(text.lower())
+    n_grams = ngrams(words, n)
+    n_grams_counts = Counter(n_grams)
+    common_ngrams = n_grams_counts.most_common(top_k)
+    
+    ngrams_list, counts = zip(*common_ngrams)
+    ngrams_labels = [' '.join(ngram) for ngram in ngrams_list]
+    
+    plt.figure(figsize=(10, 5))
+    sns.barplot(x=list(counts), y=ngrams_labels, palette='magma', hue=ngrams_labels, legend=False)
+    plt.title(f'Top {top_k} Most Common {n}-grams')
+    plt.xlabel('Counts')
+    plt.ylabel(f'{n}-grams')
     plt.show()
