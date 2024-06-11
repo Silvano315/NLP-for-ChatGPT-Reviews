@@ -3,10 +3,11 @@ import string
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.feature_extraction.text import CountVectorizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 import emoji
+
 
 slang_dict = {
     "lol": "laugh out loud",
@@ -76,7 +77,7 @@ def clean_text(text):
 
     text = text.lower()
 
-    text = re.sub(f'[{re.escape(string.punctuation.replace("_", " "))}]', '', text)
+    text = re.sub(f'[{re.escape(string.punctuation.replace("_", ""))}]', '', text)
 
     words = word_tokenize(text)
 
@@ -86,3 +87,21 @@ def clean_text(text):
     words = [lemmatizer.lemmatize(word) for word in words]
 
     return ' '.join(words)
+
+
+# Function to create a BoW vector
+def create_bow_features(df, column):
+
+    vectorizer = CountVectorizer()
+    bow_matrix = vectorizer.fit_transform(df[column])
+
+    return bow_matrix, vectorizer
+
+# Function to calculate sentiment
+def add_sentiment_features(df, column):
+
+    sia = SentimentIntensityAnalyzer()
+    sentiments = df[column].apply(lambda x: sia.polarity_scores(x)['compound'])
+    df['sentiment'] = sentiments
+
+    return df
