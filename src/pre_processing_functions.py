@@ -3,7 +3,7 @@ import string
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import word_tokenize
-from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import nltk
 import emoji
@@ -90,12 +90,27 @@ def clean_text(text):
 
 
 # Function to create a BoW vector
-def create_bow_features(df, column):
+def create_bow_features(df, column, max_features = 100):
 
-    vectorizer = CountVectorizer()
-    bow_matrix = vectorizer.fit_transform(df[column])
+    df_sampled = df[column].dropna().sample(n=10000, random_state=42).tolist()  
+
+    vectorizer = CountVectorizer(max_features=max_features)
+    vectorizer.fit(df_sampled)
+    bow_matrix = vectorizer.transform(df[column].dropna().tolist())
 
     return bow_matrix, vectorizer
+
+
+# Function to create a TF-IDF vector
+def create_tfidf_features(df, column, max_features = 100):
+
+    #df_sampled = df[column].dropna().sample(n=10000, random_state=42).tolist()  
+
+    vectorizer = TfidfVectorizer(max_features=max_features)
+    #vectorizer.fit(df_sampled)
+    tfidf_matrix = vectorizer.fit_transform(df[column].dropna().tolist())
+
+    return tfidf_matrix, vectorizer
 
 # Function to calculate sentiment
 def add_sentiment_features(df, column):
