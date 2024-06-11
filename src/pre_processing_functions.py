@@ -116,7 +116,8 @@ def create_tfidf_features(df, column, max_features = 100):
 def add_sentiment_features(df, column):
 
     sia = SentimentIntensityAnalyzer()
-    sentiments = df[column].apply(lambda x: sia.polarity_scores(x)['compound'])
+    sentiments = df[column].dropna().apply(lambda x: sia.polarity_scores(x)['compound'])
+
     df['sentiment'] = sentiments
 
     return df
