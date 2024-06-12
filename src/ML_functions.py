@@ -9,7 +9,8 @@ def plot_model_metrics(model_metrics, models, metrics):
     colors = {
         'RandomForest': 'lightgreen',
         'XGBoost': 'lightblue',
-        'LogisticRegression': 'salmon'
+        'LogisticRegression': 'salmon',
+        'SVM' : 'lightyellow'
     }
 
     fig, axs = plt.subplots(2, 3, figsize=(20, 12)) 
@@ -17,6 +18,9 @@ def plot_model_metrics(model_metrics, models, metrics):
     axs = axs.flatten()
 
     for i, metric in enumerate(metrics):
+
+        if metric == 'confusion_matrix':
+            continue
 
         means = [final_metrics[name][metric][0] for name in models]
         stds = [final_metrics[name][metric][1] for name in models]
