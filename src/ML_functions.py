@@ -1,5 +1,8 @@
 from matplotlib import pyplot as plt
+import seaborn as sns
 import numpy as np
+from sklearn.metrics import ConfusionMatrixDisplay
+
 
 # Function to visualize models metrics
 def plot_model_metrics(model_metrics, models, metrics):
@@ -35,4 +38,19 @@ def plot_model_metrics(model_metrics, models, metrics):
         fig.delaxes(axs[j])
     
     plt.tight_layout()
+    plt.show()
+
+
+# Plot for confusion matrix for each model
+def plot_confusion_matrix(conf_matrix, model_name):
+
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(conf_matrix, annot=True, cmap='Blues', fmt='g', cbar=False)
+    plt.xlabel('Predicted Label')
+    plt.ylabel('True Label')
+    plt.title(f'Confusion Matrix for {model_name}')
+
+    plt.xticks(np.arange(5) + 0.5, np.arange(1, 6))
+    plt.yticks(np.arange(5) + 0.5, np.arange(1, 6), rotation = 0)
+
     plt.show()
