@@ -9,9 +9,7 @@ def plot_model_metrics(model_metrics, models, metrics):
     colors = {
         'RandomForest': 'lightgreen',
         'XGBoost': 'lightblue',
-        'LogisticRegression': 'salmon',
-        'SVM' : 'lightyellow'
-    }
+        'LogisticRegression': 'salmon'    }
 
     fig, axs = plt.subplots(2, 3, figsize=(20, 12)) 
 
