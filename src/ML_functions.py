@@ -1,7 +1,14 @@
 from matplotlib import pyplot as plt
 import seaborn as sns
 import numpy as np
+
 from sklearn.metrics import ConfusionMatrixDisplay
+
+from imblearn.under_sampling import ClusterCentroids, TomekLinks, RandomUnderSampler
+from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+from sklearn.metrics import silhouette_score
+
 
 
 # Function to visualize models metrics
@@ -54,3 +61,51 @@ def plot_confusion_matrix(conf_matrix, model_name):
     plt.yticks(np.arange(5) + 0.5, np.arange(1, 6), rotation = 0)
 
     plt.show()
+
+# Function for Cluster Centroids Undersampling
+def cluster_centroids_undersample(X, y):
+
+    cc = ClusterCentroids(random_state=42)
+    X_res, y_res = cc.fit_resample(X, y)
+
+    return X_res, y_res
+
+#Function for Tomek Links method
+def tomek_links_undersample(X, y):
+
+    tl = TomekLinks()
+    X_res, y_res = tl.fit_resample(X, y)
+
+    return X_res, y_res
+
+
+#Function for Random Undersampling
+def random_undersample(X, y):
+    
+    rus = RandomUnderSampler(random_state=42)
+    X_res, y_res = rus.fit_resample(X, y)
+
+    return X_res, y_res
+
+
+#Function to perform feature reduction and visualize clusters
+def visualize_clusters(X, y, method='PCA'):
+
+    if method == 'PCA':
+        reducer = PCA(n_components=2)
+    elif method == 't-SNE':
+        reducer = TSNE(n_components=2, random_state=42)
+    
+    X_reduced = reducer.fit_transform(X)
+    
+    plt.figure(figsize=(10, 8))
+    scatter = plt.scatter(X_reduced[:, 0], X_reduced[:, 1], c=y, cmap='viridis', alpha=0.5)
+    plt.colorbar(scatter)
+    plt.title(f'Cluster Visualization using {method}')
+    plt.xlabel('Component 1')
+    plt.ylabel('Component 2')
+    plt.show()
+
+#Function to calculate Silhouette Score
+def calculate_silhouette_score(X, y):
+    return silhouette_score(X, y)
