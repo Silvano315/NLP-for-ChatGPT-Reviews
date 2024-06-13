@@ -4,7 +4,7 @@ import numpy as np
 
 from sklearn.metrics import ConfusionMatrixDisplay
 
-from imblearn.under_sampling import ClusterCentroids
+from imblearn.under_sampling import ClusterCentroids, TomekLinks, RandomUnderSampler
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_score
@@ -69,6 +69,24 @@ def cluster_centroids_undersample(X, y):
     X_res, y_res = cc.fit_resample(X, y)
 
     return X_res, y_res
+
+#Function for Tomek Links method
+def tomek_links_undersample(X, y):
+
+    tl = TomekLinks()
+    X_res, y_res = tl.fit_resample(X, y)
+
+    return X_res, y_res
+
+
+#Function for Random Undersampling
+def random_undersample(X, y):
+    
+    rus = RandomUnderSampler(random_state=42)
+    X_res, y_res = rus.fit_resample(X, y)
+
+    return X_res, y_res
+
 
 #Function to perform feature reduction and visualize clusters
 def visualize_clusters(X, y, method='PCA'):
