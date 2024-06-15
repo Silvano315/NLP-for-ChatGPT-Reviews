@@ -41,6 +41,12 @@ The dataset is composed of more than 130,000 rows with the following columns:
 ## Methods and Results
 
 ### Data Cleaning and Exploration
+After observing some statistical information about the dataset, I proceeded to clean it by removing possible duplicates and eliminating the few rows with NaN values in the `content` column. For visualization, I initially used a bar plot which revealed that the dataset is highly imbalanced, with 76.07% of the reviews having a score of 5. This imbalance poses a challenge for classification tasks.
+
+To gain further insights, I used Word Cloud python library to visualize the most common words in the text data, with larger words representing higher frequencies. You can view the word cloud [here](Images_ReadMe/Word_Cloud.png).
+
+I also examined the distribution of review lengths, finding that most reviews are relatively short, not exceeding five words. Additionally, I plotted a histogram to perform sentiment analysis using the SentimentIntensityAnalyzer() from the `nltk.sentiment.vader` (nltk Natural Language Toolkit) library in Python, which is a popular tool for this task. VADER is designed to analyze sentiment in short texts, such as tweets or reviews, and performs well with informal language, emoticons, and other elements commonly found in social media. VADER also adjusts scores based on context, such as intensity and negation. This analysis highlighted that the majority of reviews have a positive sentiment score, aligning with the predominance of reviews with a score of 5.
+
 
 ### Feature Engineering
 
