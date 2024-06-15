@@ -83,10 +83,22 @@ First, I used it to evaluate how XGBoost (which proved to be the most stable and
 
 For this reason, I decided to use LIME as a text explainer (`LimeTextExplainer`) and trained and tested XGBoost solely on the cleaned and TF-IDF vectorized textual reviews. The results significantly improved, with the explanations proving to be very useful in showing which words were most important in correctly predicting the chosen review. Some examples can be found in this [notebook](LIME.ipynb). 
 
-These results gave me the idea to create a web app with **Django** and containerize it with **Docker** to utilize the pre-trained TF-IDF + XGBoost pipeline on the entire dataset. This application allows a new user to provide their username and a review, receive a predicted score based on their review, and see the explanation for why this decision was made, and finally ask the user if they are satisfied.
+These results gave me the idea to create a web app with **Django** and containerize it with **Docker** to utilize the pre-trained TF-IDF + XGBoost pipeline on the entire dataset [here](reviews/Saved_Pipeline/trained_vectorizer_XGBoost.pkl).
 
 ## Django Web App
-A Django web application is implemented to provide an interactive interface for exploring the dataset and making predictions using the trained machine learning models. This web app is containerized using Docker, ensuring easy deployment and scalability.
+The goal is to set up a Django web application using Docker for streamlined development and deployment. This application allows a new user to provide their username and a review, receive a predicted score based on their review, and see the explanation for why this decision was made, and finally ask the user if they are satisfied.
+
+I utilized **Docker** for containerization, ensuring that the application and its dependencies are encapsulated in isolated environments. Then, I chose **Django** framework for its robustness in web development, built-in development server and good interaction with databses. I configured a **SQLite** database as db backend for simplicity in development of small/medium applications.
+
+In this repository, you can find the [Dockerfile](Dockerfile) and [docker-compose](docker-compose.yml) in order to define the services, networks, volumes, and ports required. In Django [settings.py](mydjangoapp/settings.py), you can find all the requirements to point to SQLite database [file](mydjangoapp/db.sqlite3). In this [py file](reviews/views.py), you can find all the functions used for this LIME text-explainer application and the logic to handle requests and connect to the HTML templates [review_form.html](mydjangoapp/templates/reviews/review_form.html) and [review_form.html](mydjangoapp/templates/reviews/result.html).
+
+ I then build and run the Docker container, which sets up the environment, including installing dependencies and running the Django development server. Next, I execute migrations to set up the database schema. Once the setup is complete, the application is accessible at http://0.0.0.0:8000/. Here an example of what you can see:
+
+![Submit Image](Images_ReadMe/submit_review.png)
+
+![Explanation Image](Images_ReadMe/explanation.png)
+
+I can write my username and submit my reviews through the web interface, and the application will process the reviews, predict scores, and provide explanations using the LIME text explainer. Then I can say if I agree or not with this score and explanation.
 
 ## Set up and Requirements
 To set up the project locally, ensure you have the following prerequisites:
