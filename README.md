@@ -52,7 +52,7 @@ After initial data cleaning where unnecessary features like ID and name were rem
 1. **Text Cleaning and Preprocessing:**
    - Text cleaning involved converting emojis to text equivalents, replacing slang using a predefined dictionary, handling negations by prefixing "NOT_" to words following negation terms, converting text to lowercase, removing punctuation, tokenizing words, removing stopwords, and lemmatizing words.
 2. **TF-IDF Vectorization:**
-   - The `create_tfidf_features` function was utilized to create TF-IDF (Term Frequency-Inverse Document Frequency) features from the cleaned text data. TF-IDF vectors represent the importance of words in a document relative to a collection of documents.
+   - The `create_tfidf_features` function was utilized to create TF-IDF (Term Frequency-Inverse Document Frequency) features from the cleaned text data. TF-IDF vectors represent the importance of words in a document relative to a collection of documents. TF-IDF provides a better representation of the relative importance of words in documents, it is not an easy method like Bag of Words.
 3. **Sentiment Analysis:**
    - Sentiment analysis was performed using the VADER tool from NLTK. The `add_sentiment_features` function calculated sentiment scores (compound score) for each review, indicating the overall sentiment expressed in the text.
 4. **Feature Scaling:**
@@ -68,6 +68,13 @@ After applying these feature engineering techniques, the dataset was enriched wi
 These engineered features are intended to provide meaningful insights and inputs for machine learning models aimed at predicting review scores based on textual content and associated metadata.
 
 ### Machine Learning Predictions
+I evaluated three machine learning models (Random Forest, Logistic Regression, XGBoost) using a Stratified 10-fold Cross-Validation. During each cycle of cross-validation, I saved metrics such as accuracy, precision, recall, f1 score, balanced_accuracy, confusion_matrix on the test dataset. These metrics were then visualized and evaluated using the average results, which can be seen in this [image link](Images_ReadMe/Evaluation_metrics.png). It's important to note that this was a classification task with 5 labels and an imbalanced dataset. The results highlighted these factors, showing relatively good metrics overall but notably poor balanced accuracy. This indicates that the models tended to favor the majority class (label 5), as evidenced by the confusion matrix in [notebook link](ML_prediction.ipynb).
+
+To address this imbalance, I experimented with and tested various undersampling techniques such as Cluster Centroids, Tomek Links, and random undersampling. Concerns about losing a significant amount of data led me to consider these techniques as exploratory examples, while avoiding oversampling due to the dataset's already substantial size and to prevent additional computational overhead.
+
+Visualizing the new datasets using PCA and t-SNE analyses, where the feature set was reduced to two principal components and Silhouette scores were calculated, revealed that these datasets did not form well-defined clusters. Evaluating balanced accuracy through Stratified 10-fold Cross-Validation showed that while the results were not perfect, techniques like Cluster Centroids demonstrated promising performance with a balanced accuracy reaching around 54% ± 5%. You can find everything in the same [notebook link](ML_prediction.ipynb).
+
+Finally, I saved the TF-IDF pipeline with XGBoost trained solely on the entire cleaned review dataset. This pipeline will be used for the Django web application project.
 
 ### LIME explainability
 
