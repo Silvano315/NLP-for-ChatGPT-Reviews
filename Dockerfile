@@ -1,4 +1,5 @@
-# Use an official Python runtime as a parent image
+# DOCKER
+
 FROM python:3.11
 
 # Set environment variables
@@ -29,6 +30,7 @@ RUN python -c "import nltk; nltk.download('vader_lexicon')"
 
 # Add these lines after COPY . .
 RUN mkdir /app/staticfiles
+
 # Adjust permissions if necessary
 RUN chmod 755 /app/staticfiles
 
