@@ -3,13 +3,13 @@
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Dataset](#dataset)
-  * [Kaggle](#kaggle)
-  * [Description](#description)
+  - [Kaggle](#kaggle)
+  - [Description](#description)
 3. [Methods and Results](#methods-and-results)
-  * [Data Cleaning and Exploration](#data-cleaning-and-exploration)
-  * [Feature Engineering](#feature-engineering)
-  * [Machine Learning Predictions](#machine-learning-predictions)
-  * [LIME explainability](#lime-explainability)
+  - [Data Cleaning and Exploration](#data-cleaning-and-exploration)
+  - [Feature Engineering](#feature-engineering)
+  - [Machine Learning Predictions](#machine-learning-predictions)
+  - [LIME explainability](#lime-explainability)
 4. [Django Web App](#django-web-app)
 5. [Set up and Requirements](#set-up-and-requirements)
 6. [References](#references)
@@ -55,18 +55,21 @@ To set up the project locally, ensure you have the following prerequisites:
 - Required Python libraries (listed in `requirements.txt`)
 
 ### Steps to Set Up
-1. Clone the repository: `git clone <repository-url>`
-2. Navigate to the project directory: `cd <project-directory>`
-3. Build the Docker Image and starts containers: `docker-compose up -d --build`
-4. Create initial migrations for your Django app: `docker-compose exec web python manage.py makemigrations`
-5. Apply migrations to create necessary database tables: `docker-compose exec web python manage.py migrate`
-6. Access the web application at `http://localhost:8000`
+1. Clone the repository: 
+`git clone <repository-url>`
+2. Navigate to the project directory: 
+`cd <project-directory>`
+3. Build the Docker Image and starts containers: 
+`docker-compose up -d --build`
+4. Create initial migrations for your Django app: 
+`docker-compose exec web python manage.py makemigrations`
+5. Apply migrations to create necessary database tables: 
+`docker-compose exec web python manage.py migrate`
+6. Access the web application at 
+`http://localhost:8000`
 
 ## References
 - Kaggle Dataset: [Link to the dataset](https://www.kaggle.com/datasets/ashishkumarak/chatgpt-reviews-daily-updated/data)
 - LIME Algorithm: Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. "Why should I trust you?": Explaining the predictions of any classifier." Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. 2016.
 - Django Documentation: [https://docs.djangoproject.com/](https://docs.djangoproject.com/)
 - Docker Documentation: [https://docs.docker.com/](https://docs.docker.com/)
-
-
-The dataset in [this folder](Data/) comes from this Kaggle link: https://www.kaggle.com/datasets/ashishkumarak/chatgpt-reviews-daily-updated/data
