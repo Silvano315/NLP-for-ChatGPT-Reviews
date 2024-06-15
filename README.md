@@ -47,8 +47,25 @@ To gain further insights, I used Word Cloud python library to visualize the most
 
 I also examined the distribution of review lengths, finding that most reviews are relatively short, not exceeding five words. Additionally, I plotted a histogram to perform sentiment analysis using the SentimentIntensityAnalyzer() from the `nltk.sentiment.vader` (nltk Natural Language Toolkit) library in Python, which is a popular tool for this task. VADER is designed to analyze sentiment in short texts, such as tweets or reviews, and performs well with informal language, emoticons, and other elements commonly found in social media. VADER also adjusts scores based on context, such as intensity and negation. This analysis highlighted that the majority of reviews have a positive sentiment score, aligning with the predominance of reviews with a score of 5.
 
-
 ### Feature Engineering
+After initial data cleaning where unnecessary features like ID and name were removed, several functions were applied to preprocess and engineer features from the text data:
+1. **Text Cleaning and Preprocessing:**
+   - Text cleaning involved converting emojis to text equivalents, replacing slang using a predefined dictionary, handling negations by prefixing "NOT_" to words following negation terms, converting text to lowercase, removing punctuation, tokenizing words, removing stopwords, and lemmatizing words.
+2. **TF-IDF Vectorization:**
+   - The `create_tfidf_features` function was utilized to create TF-IDF (Term Frequency-Inverse Document Frequency) features from the cleaned text data. TF-IDF vectors represent the importance of words in a document relative to a collection of documents.
+3. **Sentiment Analysis:**
+   - Sentiment analysis was performed using the VADER tool from NLTK. The `add_sentiment_features` function calculated sentiment scores (compound score) for each review, indicating the overall sentiment expressed in the text.
+4. **Feature Scaling:**
+   - Features such as `thumbsUpCount`and `text_length` were scaled using MinMaxScaler to ensure uniformity in their ranges and improve model performance.
+
+After applying these feature engineering techniques, the dataset was enriched with the following columns:
+- `score`
+- `thumbsUpCount`
+- `sentiment`
+- `text_length`
+- 100 columns representing TF-IDF features capturing important terms from the text data.
+
+These engineered features are intended to provide meaningful insights and inputs for machine learning models aimed at predicting review scores based on textual content and associated metadata.
 
 ### Machine Learning Predictions
 
