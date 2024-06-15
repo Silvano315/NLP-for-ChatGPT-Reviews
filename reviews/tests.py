@@ -1,5 +1,3 @@
-# /Users/silvanoquarto/Desktop/PROJECTS/NLP-for-ChatGPT-Reviews/reviews/tests.py
-
 from django.test import TestCase
 
 class SimpleTest(TestCase):

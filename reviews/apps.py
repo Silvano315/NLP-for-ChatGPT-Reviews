@@ -1,5 +1,3 @@
-# /Users/silvanoquarto/Desktop/PROJECTS/NLP-for-ChatGPT-Reviews/reviews/apps.py
-
 from django.apps import AppConfig
 
 class ReviewsConfig(AppConfig):
