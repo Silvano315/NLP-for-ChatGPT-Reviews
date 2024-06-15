@@ -17,6 +17,11 @@
 ## Introduction
 The main idea for this project is to explore a Kaggle dataset about ChatGPT reviews using an NLP approach to apply machine learning models for predicting review scores. The LIME algorithm is used to evaluate explainability, providing text and feature explanations. Additionally, a Docker container is utilized to set up a Django web application for easier interaction with the data and models.
 
+For a project like ChatGPT, there is an enormous amount of reviews. Understanding which ones are valid, explaining why they are valid, or allowing a user to generate a rating from their comment with an added layer of explainability is certainly a step forward in the world of marketing and communication. The reasons for these advantages are threefold:
+1. **Enhanced Credibility**
+2. **User Engagement**
+3. **Informed Decision-Making**
+
 ## Dataset
 
 ### Kaggle
@@ -52,7 +57,7 @@ To set up the project locally, ensure you have the following prerequisites:
 - Docker
 - Python 3.11.x
 - Django
-- Required Python libraries (listed in `requirements.txt`)
+- Required Python libraries (listed in [requirements.txt](requirements.txt))
 
 ### Steps to Set Up
 1. Clone the repository: 
@@ -65,11 +70,12 @@ To set up the project locally, ensure you have the following prerequisites:
 `docker-compose exec web python manage.py makemigrations`
 5. Apply migrations to create necessary database tables: 
 `docker-compose exec web python manage.py migrate`
-6. Access the web application at 
+6. Access the web application at:
 `http://localhost:8000`
 
 ## References
-- Kaggle Dataset: [Link to the dataset](https://www.kaggle.com/datasets/ashishkumarak/chatgpt-reviews-daily-updated/data)
-- LIME Algorithm: Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. "Why should I trust you?": Explaining the predictions of any classifier." Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. 2016.
-- Django Documentation: [https://docs.djangoproject.com/](https://docs.djangoproject.com/)
-- Docker Documentation: [https://docs.docker.com/](https://docs.docker.com/)
+1. OpenAI: [https://www.openai.com/](https://www.openai.com/)
+2. Kaggle Dataset: [Link to the dataset](https://www.kaggle.com/datasets/ashishkumarak/chatgpt-reviews-daily-updated/data)
+3. LIME Algorithm: Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. "Why should I trust you?": Explaining the predictions of any classifier." Proceedings of the 22nd ACM SIGKDD international conference on knowledge discovery and data mining. 2016.
+4. Django Documentation: [https://docs.djangoproject.com/](https://docs.djangoproject.com/)
+5. Docker Documentation: [https://docs.docker.com/](https://docs.docker.com/)
