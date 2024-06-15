@@ -77,6 +77,13 @@ Visualizing the new datasets using PCA and t-SNE analyses, where the feature set
 Finally, I saved the TF-IDF pipeline with XGBoost trained solely on the entire cleaned review dataset. This pipeline will be used for the Django web application project.
 
 ### LIME explainability
+I used the **LIME** algorithm to obtain local explanations by applying it in two ways. 
+
+First, I used it to evaluate how XGBoost (which proved to be the most stable and fastest algorithm) performed with my dataset of extracted features, both textual and non-textual. I split the dataset and trained it on the training portion, then created the `LimeTabularExplainer` and the explainer instance to evaluate how the model interpreted the features. LIME provides explanations for individual predictions based on the features and their contributions to the model's decision. The results highlighted the enormous potential of the project, but also the limitations of training on an imbalanced dataset. Useful insights were obtained regarding how the model considered certain features for the chosen prediction, but the result was not fully satisfactory.
+
+For this reason, I decided to use LIME as a text explainer (`LimeTextExplainer`) and trained and tested XGBoost solely on the cleaned and TF-IDF vectorized textual reviews. The results significantly improved, with the explanations proving to be very useful in showing which words were most important in correctly predicting the chosen review. Some examples can be found in this [notebook](LIME.ipynb). 
+
+These results gave me the idea to create a web app with **Django** and containerize it with **Docker** to utilize the pre-trained TF-IDF + XGBoost pipeline on the entire dataset. This application allows a new user to provide their username and a review, receive a predicted score based on their review, and see the explanation for why this decision was made, and finally ask the user if they are satisfied.
 
 ## Django Web App
 A Django web application is implemented to provide an interactive interface for exploring the dataset and making predictions using the trained machine learning models. This web app is containerized using Docker, ensuring easy deployment and scalability.
