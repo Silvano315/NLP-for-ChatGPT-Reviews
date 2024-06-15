@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Review Result</title>
+    <style>
+        .lime {
+            background-color: white !important;
+            color: black !important;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Review Analysis Result</h1>
+    <p><strong>Username:</strong> {{ review.username }}</p>
+    <p><strong>Review:</strong> {{ review.review_text }}</p>
+    <p><strong>Predicted Score (from 0 to 4):</strong> {{ review.predicted_score }}</p>
+    <p><strong>Are you satisfied with this result?</strong></p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="radio" name="satisfaction" value="yes"> Yes<br>
+        <input type="radio" name="satisfaction" value="no"> No<br>
+        <input type="radio" name="satisfaction" value="not sure"> Not Sure<br>
+        <button type="submit">Submit</button>
+    </form>
+    <div>
+        {{ explanation|safe }}
+    </div>
+</div>
+</body>
+</html>
